@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import okareLogo from './assets/okare-logo.png'
 import './App.css'
 
 const cuisines = [
@@ -16,6 +17,7 @@ const restaurants = [
 ]
 
 function App() {
+  const [menuOpen, setMenuOpen] = useState(false)
   const [activeCuisine, setActiveCuisine] = useState('All')
   const [cart, setCart] = useState(0)
   const [notice, setNotice] = useState('')
@@ -23,9 +25,10 @@ function App() {
   const addToCart = (restaurant) => { setCart((count) => count + 1); showNotice(`${restaurant.name} added to your order`) }
 
   return <main>
-    <nav className="nav shell">
-      <a className="brand" href="#top" aria-label="Okare home"><span>o</span>kare</a>
-      <div className="nav-links"><a href="#restaurants">Restaurants</a><a href="#how">How it works</a><a href="#offers">Offers</a></div>
+    <nav className="nav shell" aria-label="Main navigation" onKeyDown={(event) => { if (event.key === 'Escape' && menuOpen) { setMenuOpen(false); event.currentTarget.querySelector('.menu-toggle').focus() } }}>
+      <a className="brand" href="#top" aria-label="Okare home"><img src={okareLogo} alt="Okare" width="2172" height="724" /></a>
+      <button className="menu-toggle" aria-expanded={menuOpen} aria-controls="nav-links" aria-label={menuOpen ? 'Close navigation menu' : 'Open navigation menu'} onClick={() => setMenuOpen((open) => !open)}><span aria-hidden="true">{menuOpen ? '✕' : '☰'}</span></button>
+      <div id="nav-links" className={`nav-links${menuOpen ? ' is-open' : ''}`} onClick={() => setMenuOpen(false)}><a href="#restaurants">Restaurants</a><a href="#how">How it works</a><a href="#offers">Offers</a></div>
       <div className="nav-actions"><button className="location" onClick={() => showNotice('Location selector coming right up!')}>⌖ <span>Delivery to</span> 48 Willow Street⌄</button><button className="cart" onClick={() => showNotice(cart ? `${cart} item${cart > 1 ? 's' : ''} in your bag` : 'Your bag is empty')}>Bag <b>{cart}</b></button></div>
     </nav>
     <section className="hero shell" id="top">

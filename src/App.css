@@ -24,3 +24,6 @@
   .nav-links a:hover{background:#e8f3e4}
 }
 @media(max-width:380px){.brand img{width:132px}.nav{column-gap:8px}.cart{padding-inline:10px}}
+
+.site-footer{display:flex;flex-wrap:wrap;align-items:center;gap:16px 24px;padding-block:24px 32px;border-top:1px solid #dce6df;font-size:14px;color:var(--muted)}
+.site-footer span{margin-right:auto}.site-footer a{color:var(--green);text-underline-offset:4px;padding-block:8px}.site-footer a:focus-visible{outline:2px solid var(--orange);outline-offset:4px}

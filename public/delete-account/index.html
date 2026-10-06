@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Request account deletion | Okare</title>
+  <meta name="description" content="Request deletion of your Okare customer account and associated personal data. No app installation is needed. Contact Okare Enterprise support." />
+  <link rel="icon" href="/favicon.png" />
+  <style>
+    :root { color-scheme: light; --ink:#213c34; --green:#174d3c; --muted:#52675d; --line:#dce6df; }
+    * { box-sizing:border-box; }
+    [hidden] { display:none !important; }
+    body { margin:0; background:#fffdf9; color:var(--ink); font:16px/1.65 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
+    a { color:var(--green); text-underline-offset:4px; }
+    a,button,input { -webkit-tap-highlight-color:transparent; }
+    :focus-visible { outline:3px solid #c64f30; outline-offset:4px; }
+    .shell { width:min(920px,calc(100% - 40px)); margin:auto; }
+    header { display:flex; align-items:center; justify-content:space-between; gap:20px; padding:24px 0; border-bottom:1px solid var(--line); }
+    .brand { font-size:26px; font-weight:800; text-decoration:none; letter-spacing:-1px; }
+    header a:last-child { font-size:14px; }
+    main { padding:48px 0 56px; }
+    .eyebrow { color:#a8462d; font-size:12px; font-weight:750; letter-spacing:2px; text-transform:uppercase; margin:0 0 12px; }
+    h1 { font-size:clamp(32px,6vw,48px); line-height:1.12; letter-spacing:-1.6px; margin:0 0 20px; max-width:640px; }
+    h2 { font-size:22px; line-height:1.3; margin:0 0 14px; }
+    p { margin:0 0 16px; }
+    .lead { max-width:680px; color:var(--muted); font-size:18px; }
+    .request { margin:32px 0; padding:28px; background:#e8f3eb; border:1px solid #cfdfd3; border-radius:20px; }
+    ol,ul { padding-left:24px; margin:12px 0 20px; }
+    li { padding-left:4px; margin-bottom:10px; }
+    .actions { display:flex; flex-wrap:wrap; gap:12px; margin:20px 0 14px; }
+    .button { display:inline-flex; align-items:center; justify-content:center; min-height:48px; border:1px solid var(--green); border-radius:12px; padding:12px 20px; font:600 15px/1.4 system-ui,sans-serif; cursor:pointer; text-decoration:none; background:var(--green); color:white; }
+    .secondary { background:transparent; color:var(--green); }
+    .small { font-size:14px; color:var(--muted); }
+    .email { overflow-wrap:anywhere; font-weight:650; }
+    .grid { display:grid; grid-template-columns:1fr 1fr; gap:24px; }
+    .card { background:white; border:1px solid var(--line); border-radius:20px; padding:26px; }
+    .card ul { margin-bottom:0; }
+    .followup { margin-top:28px; padding:28px 0 0; border-top:1px solid var(--line); }
+    details { margin-top:20px; }
+    summary { cursor:pointer; font-weight:650; padding:8px 0; }
+    pre { white-space:pre-wrap; overflow-wrap:anywhere; background:white; border:1px solid var(--line); border-radius:12px; padding:18px; font:14px/1.65 system-ui,sans-serif; }
+    #copy-status { margin:0; font-size:14px; }
+    footer { padding:24px 0 40px; border-top:1px solid var(--line); font-size:14px; color:var(--muted); }
+    @media(max-width:600px) { .grid { grid-template-columns:1fr; } .request,.card { padding:22px; } main { padding-top:32px; } .actions { flex-direction:column; } }
+    </style>
+</head>
+<body>
+  <header class="shell"><a class="brand" href="/" aria-label="Okare home">Okare<span aria-hidden="true">.</span></a><a href="/">Back to home</a></header>
+  <main class="shell">
+    <p class="eyebrow">Your account · Your choice</p>
+    <h1>Request account deletion</h1>
+    <p class="lead">You can request deletion of your Okare customer account and associated personal data without installing or signing in to the app.</p>
+    <p class="small">This page is provided by Okare Enterprise, the operator of Okare.</p>
+
+    <section class="request" aria-labelledby="request-title">
+      <h2 id="request-title">Send your deletion request</h2>
+      <ol>
+        <li>Email <a class="email" href="mailto:support@okare.in">support@okare.in</a> with the subject <strong>Okare account deletion request</strong>.</li>
+        <li>Include your registered mobile number with country code or your registered email address. Where possible, send from the email linked to your account.</li>
+        <li>Our support team will verify account ownership before processing deletion. If you no longer have access to your registered phone or email, mention that so we can help with verification.</li>
+      </ol>
+      <div class="actions">
+        <a class="button" href="mailto:support@okare.in?subject=Okare%20account%20deletion%20request&amp;body=Hello%20Okare%20Support%2C%0A%0AI%20request%20deletion%20of%20my%20Okare%20customer%20account%20and%20associated%20personal%20data.%0A%0ARegistered%20mobile%20number%20with%20country%20code%20or%20registered%20email%3A%20%5Benter%20here%5D%0A%0APlease%20confirm%20the%20verification%20steps%2C%20expected%20completion%20date%2C%20and%20any%20records%20that%20must%20be%20retained%20with%20their%20retention%20period.%0A%0AThank%20you.">Open email request <span aria-hidden="true">&nbsp;↗</span></a>
+        <button class="button secondary" id="copy-request" type="button" hidden>Copy request text</button>
+      </div>
+      <p class="small"><strong>Opening the email does not submit a request.</strong> Add your account details and press Send in your email app. If no email app opens, use your usual email service and the address above.</p>
+      <p class="small">Do not send passwords, OTPs, card details or identity documents in your initial email. A reason for leaving is not required.</p>
+      <p id="copy-status" role="status" aria-live="polite"></p>
+      <details id="request-template"><summary>View email template</summary><pre id="email-template">To: support@okare.in
+Subject: Okare account deletion request
+
+Hello Okare Support,
+
+I request deletion of my Okare customer account and associated personal data.
+
+Registered mobile number with country code or registered email: [enter here]
+
+Please confirm the verification steps, expected completion date, and any records that must be retained with their retention period.
+
+Thank you.</pre></details>
+    </section>
+
+    <section class="followup" aria-labelledby="app-title">
+      <h2 id="app-title">Prefer to request in the app?</h2>
+      <p>Open <strong>Profile → App settings → Delete account</strong>, verify your registered phone or password, and confirm. This schedules deletion after <strong>30 days</strong>. An hourly server job processes eligible requests on a subsequent run.</p>
+      <p>You can cancel before processing. Signing in does not cancel the request. Active deliveries, unresolved payment/support cases, retention holds or issues requiring review can delay completion. The app shows the scheduled date and any recorded blocker.</p>
+      <p>You do not need to install the app to request deletion: the email option above is available to everyone. Email requests are handled by support; sending an email does not automatically start the in-app countdown.</p>
+    </section>
+
+    <div class="grid">
+      <section class="card" aria-labelledby="deleted-title">
+        <h2 id="deleted-title">What deletion covers</h2>
+        <p>Your request covers your login account and associated personal data that does not need to be retained, including:</p>
+        <ul><li>Profile and saved delivery addresses.</li><li>Favorites and account preferences.</li><li>Feedback and push notification registrations.</li><li>Personal contact, address and delivery-note details in retained order/payment records, subject to the exceptions below.</li></ul>
+        <p class="small">After deletion, you will no longer be able to access this account or its order history.</p>
+      </section>
+      <section class="card" aria-labelledby="retained-title">
+        <h2 id="retained-title">Records that may be retained</h2>
+        <p>Limited order, payment, refund and dispute records may need to be kept for accounting, legal obligations, fraud prevention or an unresolved claim.</p>
+        <p>We will explain any applicable exception and retention period when handling your request. Financial records are not all covered by a 30-day or 90-day deletion rule. Read our <a href="/privacy-policy/#retention">privacy policy retention section</a> for the current categories and rules.</p>
+        <p class="small">Service-provider logs and backups follow separate retention schedules. We cannot promise immediate removal from those systems; ask support for the applicable details.</p>
+      </section>
+    </div>
+
+    <section class="followup" aria-labelledby="next-title">
+      <h2 id="next-title">What happens next?</h2>
+      <p>Support will reply with verification steps and the expected completion timeframe, then confirm when deletion is complete. This page initiates a support request; it does not automatically delete your account.</p>
+      <p>You can still request deletion if you have an active delivery, pending payment, refund or support ticket. We will explain which details need to be kept while that issue is resolved. Account deletion does not itself cancel an order or request a refund.</p>
+      <p>For updates, reply to your original email thread at <a class="email" href="mailto:support@okare.in">support@okare.in</a>.</p>
+    </section>
+  </main>
+  <footer class="shell"><strong>Okare Enterprise</strong><br />Musabani No-3, Musabani, East Singhbhum, Jharkhand 832104, India<br /><a href="mailto:support@okare.in">support@okare.in</a><br /><a href="/privacy-policy/">Privacy policy</a></footer>
+  <script>
+    const copyButton = document.getElementById('copy-request');
+    copyButton.hidden = false;
+    copyButton.addEventListener('click', async () => {
+      const status = document.getElementById('copy-status');
+      try {
+        await navigator.clipboard.writeText(document.getElementById('email-template').textContent);
+        status.textContent = 'Copied. Paste into your email service, replace [enter here] with your account details, and send to support@okare.in. Your request has not been sent yet.';
+      } catch {
+        document.getElementById('request-template').open = true;
+        status.textContent = 'Copy is unavailable in this browser. Select and copy the template below, then send it using your email service.';
+      }
+    });
+  </script>
+</body>
+</html>

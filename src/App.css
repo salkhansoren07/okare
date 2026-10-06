@@ -27,3 +27,33 @@
 
 .site-footer{display:flex;flex-wrap:wrap;align-items:center;gap:16px 24px;padding-block:24px 32px;border-top:1px solid #dce6df;font-size:14px;color:var(--muted)}
 .site-footer span{margin-right:auto}.site-footer a{color:var(--green);text-underline-offset:4px;padding-block:8px}.site-footer a:focus-visible{outline:2px solid var(--orange);outline-offset:4px}
+
+/* Allow mobile content to shrink naturally instead of clipping its grid track. */
+@media(max-width:800px){
+  .hero{grid-template-columns:minmax(0,1fr)}
+  .hero-copy,.hero-visual,.section-heading>div{min-width:0}
+  .hero-note{flex-wrap:wrap;row-gap:8px}
+  .section-heading{flex-wrap:wrap;gap:14px}
+  .arrow-button{flex-shrink:0}
+  .toast{width:max-content;max-width:calc(100% - 32px);overflow-wrap:anywhere;text-align:center}
+}
+@media(max-width:480px){
+  .nav{column-gap:8px}
+  .brand img{width:clamp(120px,36vw,156px)}
+  .menu-toggle,.nav-actions{flex-shrink:0}
+  .hero{padding-inline:18px}
+  .hero h1{font-size:clamp(32px,9vw,42px);letter-spacing:-1.4px;overflow-wrap:break-word}
+  .address-search{display:grid;grid-template-columns:24px minmax(0,1fr)}
+  .address-search input{min-width:0;width:100%;height:40px;padding-inline:4px;font-size:16px}
+  .address-search button{grid-column:1/-1;min-height:44px}
+  .cuisines{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .restaurant-info>div{min-width:0}.restaurant-info h3{overflow-wrap:anywhere}
+  .rating{flex-shrink:0}.restaurant-footer{flex-wrap:wrap}
+}
+@media(max-width:360px){
+  .plate{width:250px;height:250px}
+  .pasta{font-size:118px}.basil{left:88px;top:65px}
+  .t1{top:72px;right:62px}.t2{bottom:72px;left:65px}
+  .hero-visual{min-height:300px}.food-shadow{width:220px;top:225px}
+  .rating-card{top:185px;left:0}.delivery-card{top:250px;right:0}
+}

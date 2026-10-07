@@ -28,7 +28,7 @@ orders/refunds individually; do not silently discard them.
 
 Before claiming Play readiness, the operator must confirm and publish:
 - A realistic maximum processing timeframe.
-- Specific retention periods and reasons for retained order/payment/refund/dispute records.
+- Enforcement of the chosen financial-retention target: 90 days after the latest related closure, with unresolved-case and required legal holds. Automatic financial cleanup is not yet enabled.
 - Verified provider-log and backup retention periods where relevant.
 
 The page currently explains these exceptions and directs users to support for
@@ -40,6 +40,6 @@ Official requirements: https://support.google.com/googleplay/android-developer/a
 
 ## Privacy page and cross-links
 
-`public/privacy-policy/index.html` builds to `dist/privacy-policy/index.html` and is linked from the homepage and deletion page. It has no login, cookies, external fonts or JavaScript requirement. It describes both login methods, current providers, the 30-day in-app process, 90-day cleanup eligibility and retained financial records. Provider log/backup periods are explicitly unconfirmed; specific financial retention periods still require operator confirmation. No blanket Play compliance claim is made.
+`public/privacy-policy/index.html` builds to `dist/privacy-policy/index.html` and is linked from the homepage and deletion page. It has no login, cookies, external fonts or JavaScript requirement. It describes both login methods, current providers, the 30-day in-app process, 90-day cleanup eligibility and retained financial records. Provider log/backup periods are explicitly unconfirmed; the financial-retention target is now 90 days after the latest related closure, but automated enforcement and applicable legal holds still require verification. No blanket Play compliance claim is made.
 
 Verify both `/privacy-policy` and `/privacy-policy/` on the actual host, and both deletion URL variants. Serve static directory indexes before the SPA fallback. Publish the entire rebuilt `dist` directory. Publishing and live-domain verification are separate from local implementation; no hosting credentials or deployment configuration are provided here.

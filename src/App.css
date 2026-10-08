@@ -57,3 +57,25 @@
   .hero-visual{min-height:300px}.food-shadow{width:220px;top:225px}
   .rating-card{top:185px;left:0}.delivery-card{top:250px;right:0}
 }
+
+/* Early-access signup: readable forms and stacked controls on phones. */
+.early-access{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:48px;padding-block:64px;align-items:center;scroll-margin-top:24px}
+.early-copy h2{font:700 clamp(30px,4vw,44px)/1.15 Fraunces,serif;color:var(--green);margin:12px 0 20px}
+.early-copy p,.early-copy li,.early-panel p{line-height:1.65;color:#52675d}
+.early-copy ol{padding-left:22px}.early-copy li{padding-left:6px;margin-block:14px}
+.early-panel{min-width:0;border:1px solid #cfdfd3;background:#edf5ef;border-radius:24px;padding:28px}
+.early-panel h3{color:var(--green);font-size:21px;margin:0 0 16px}
+.early-panel label{display:block;font-weight:650;font-size:14px;color:var(--green)}
+.early-panel input[type=email]{width:100%;min-width:0;box-sizing:border-box;padding:14px;border:1px solid #9caf9f;border-radius:10px;font:inherit;font-size:16px;background:white;margin-top:8px;color:#213c34}
+.early-panel .early-small{font-size:13px;line-height:1.6;overflow-wrap:anywhere}
+.early-panel .early-consent{display:flex;gap:10px;align-items:flex-start;font-size:13px;line-height:1.6;font-weight:400;margin:20px 0}
+.early-consent input{width:18px;height:18px;flex-shrink:0;margin-top:2px;accent-color:var(--green)}
+.early-panel a{color:var(--green);text-underline-offset:3px}
+.early-submit,.early-play{display:flex;justify-content:center;align-items:center;min-height:48px;padding:12px 16px;width:100%;box-sizing:border-box;border-radius:10px;font-family:inherit;font-size:15px;font-weight:700;line-height:1.4;text-align:center}
+.early-submit{background:var(--green);color:white;border:0;cursor:pointer;font-size:15px;font-weight:700}
+.early-submit:disabled{opacity:.65;cursor:wait}.early-play{border:1px solid var(--green);text-decoration:none}
+.early-download{margin-top:24px;padding-top:24px;border-top:1px solid #c8dacd}.early-download h3{font-size:17px;margin-bottom:8px}
+.early-panel .early-error{color:#9c231c;font-size:14px}.early-badge{display:inline-block;background:#d7eadc;color:#174d3c;padding:6px 10px;border-radius:20px;font-size:13px;font-weight:700;margin-bottom:16px}
+.early-trap{position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden}
+.early-panel :focus-visible{outline:3px solid #bb4d31;outline-offset:3px}
+@media(max-width:800px){.early-access{grid-template-columns:minmax(0,1fr);gap:20px;padding-block:40px}.early-panel{padding:22px}}

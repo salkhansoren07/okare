@@ -1,4 +1,5 @@
-import { defineConfig } from 'vite'
+import { defineConfig, loadEnv } from 'vite'
+import earlyAccessHandler from './api/early-access.js'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 
@@ -19,9 +20,33 @@ function legalPageRoutes() {
   }
 }
 
+function earlyAccessApi() {
+  return {
+    name: 'okare-early-access-api',
+    configureServer(server) {
+      const env = loadEnv(server.config.mode, server.config.root, '')
+      for (const key of ['SUPABASE_URL', 'SUPABASE_SERVICE_ROLE_KEY']) {
+        if (!process.env[key] && env[key]) process.env[key] = env[key]
+      }
+      server.middlewares.use('/api/early-access', async (req, res) => {
+        let body = ''
+        for await (const chunk of req) {
+          body += chunk
+          if (body.length > 2048) { res.statusCode = 413; res.end(); return }
+        }
+        req.body = body
+        res.status = code => { res.statusCode = code; return res }
+        res.json = data => { res.setHeader('Content-Type', 'application/json'); res.end(JSON.stringify(data)); return res }
+        await earlyAccessHandler(req, res)
+      })
+    },
+  }
+}
+
 export default defineConfig({
   plugins: [
     legalPageRoutes(),
+    earlyAccessApi(),
     react(),
     tailwindcss(),
   ],

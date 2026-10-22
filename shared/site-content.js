@@ -12,7 +12,7 @@ export const pricingSections = [
   { title: 'Review your final total', text: 'Review the item subtotal, applicable charges, any available discounts and the final payable amount in the app. Offers apply only when shown for your order; sample website cards are not an offer of sale.' },
   { title: 'Service locations', text: `Okare serves ${serviceArea}. Availability depends on the exact address and available restaurants. For pricing or delivery questions, contact support@okare.in.` },
 ]
-export const links = [['Home','https://okare.in/'],['Pricing and delivery charges','https://okare.in/pricing/'],['Privacy policy','https://okare.in/privacy-policy/'],['Delete account','https://okare.in/delete-account/'],['Sitemap','https://okare.in/sitemap.xml'],['Contact support','mailto:support@okare.in']]
+export const links = [['Home','https://okare.in/'],['About','https://okare.in/about/'],['Contact','https://okare.in/contact/'],['Pricing and delivery charges','https://okare.in/pricing/'],['Privacy policy','https://okare.in/privacy-policy/'],['Delete account','https://okare.in/delete-account/'],['Sitemap','https://okare.in/sitemap.xml'],['Contact support','mailto:support@okare.in']]
 const escape = value => value.replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;')
 export const sectionHtml = sections => sections.map(s=>`<section><h2>${escape(s.title)}</h2><p>${escape(s.text)}</p></section>`).join('\n')
 export const markdown = (title, sections) => `# ${title}\n\n${sections.map(s=>`## ${s.title}\n\n${s.text}`).join('\n\n')}\n\n## Links\n\n${links.map(([label,url])=>`- [${label}](${url})`).join('\n')}\n`
@@ -24,7 +24,37 @@ export const pricingHtml = standaloneHtml('Pricing and delivery charges',section
 export const missingHtml = standaloneHtml('Page not found','<p>The requested page does not exist. Use the links below to find information about Okare.</p>')
 export const structuredData = {
  '@context':'https://schema.org', '@graph':[
-  {'@type':'Organization','@id':'https://okare.in/#organization',name:'Okare Enterprise',url:'https://okare.in/',logo:'https://okare.in/favicon.png',description:homeSections[0].text,email:'support@okare.in',areaServed:serviceArea},
+  {'@type':'Organization','@id':'https://okare.in/#organization',name:'Okare Enterprise',url:'https://okare.in/',logo:'https://okare.in/favicon.png',description:homeSections[0].text,email:'support@okare.in',telephone:'+919942304436',areaServed:serviceArea,
+   contactPoint: {
+    '@type':'ContactPoint',
+    contactType:'customer support',
+    email:'support@okare.in',
+    telephone:'+919942304436'
+   },
+   address: {
+    '@type':'PostalAddress',
+    streetAddress:'Musabani No-3',
+    addressLocality:'Musabani, East Singhbhum',
+    addressRegion:'Jharkhand',
+    postalCode:'832104',
+    addressCountry:'IN'
+   }
+  },
   {'@type':'SoftwareApplication','@id':'https://okare.in/#app',name:'Okare',url:'https://okare.in/',description:homeSections[0].text,operatingSystem:'Android',applicationCategory:'LifestyleApplication',identifier:'com.salkhansoren.quickbite',installUrl:'https://play.google.com/apps/testing/com.salkhansoren.quickbite',publisher:{'@id':'https://okare.in/#organization'}}
  ]
 }
+
+export const aboutSections = [
+  { title: 'Who we are', text: 'Okare is a food-ordering and delivery service operated by Okare Enterprise, based at Musabani No-3, Musabani, East Singhbhum, Jharkhand 832104, India. Our customer app connects people with local restaurants and kitchens. This website explains the service and provides information about early access, pricing, privacy and support.' },
+  { title: 'Our service locations', text: `We serve ${serviceArea}. Availability depends on your exact delivery address, the participating restaurants and their current availability. Confirm your address and delivery pin in the app before placing an order; a listed town does not mean every address can be served at all times.` },
+  { title: 'Using the customer app', text: 'Customers choose available food, review their cart, confirm the delivery location and review the final price before placing an order in the app. Food prices and applicable delivery or other charges are shown at checkout. The restaurant cards on our landing page are previews, not a live menu or a guarantee of a particular offer.' },
+  { title: 'Android early access', text: 'Okare is available through an Android early-access test. Request access using the email associated with your Google Play account, then wait for our team to add you to the tester list. The testing link uses com.salkhansoren.quickbite, the package identifier for the Okare customer app. For help getting started, contact support@okare.in.' },
+]
+export const contactSections = [
+  { title: 'Contact Okare Enterprise', text: 'Email support@okare.in for questions about Okare, Android early access, delivery availability or an existing order. You can also call +91 9942304436. Our business address is Musabani No-3, Musabani, East Singhbhum, Jharkhand 832104, India. This is our published contact address; contact us before planning an in-person visit.' },
+  { title: 'Order and payment questions', text: 'When asking about an order or payment, include the order or transaction reference and a short description of the problem. Explain whether you need help with delivery, a payment status or another order issue. Do not send your password, sign-in OTP, UPI PIN or card security code. Support may need to verify the relevant account before sharing account-specific information.' },
+  { title: 'Android testing and service availability', text: `For early-access questions, tell us whether you have requested access and what message Google Play shows. Okare serves ${serviceArea}, subject to exact address and restaurant availability. Ask support if you are unsure whether your location can be served.` },
+  { title: 'Privacy and account requests', text: 'You can use the same support email for access, correction and deletion questions about your personal information. Read our privacy policy and account-deletion page for the available request methods and verification process. Sending a support message does not automatically cancel an order, issue a refund or complete account deletion.' },
+]
+export const aboutHtml = standaloneHtml('About Okare', sectionHtml(aboutSections), '/about/')
+export const contactHtml = standaloneHtml('Contact Okare', '<p><a href="mailto:support@okare.in">Email support@okare.in</a> · <a href="tel:+919942304436">Call +91 9942304436</a></p>' + sectionHtml(contactSections), '/contact/')

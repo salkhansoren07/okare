@@ -1,4 +1,5 @@
-import { homeSections, sectionHtml, structuredData, pricingHtml, homeMarkdown } from './shared/site-content.js'
+import { readFileSync } from 'node:fs'
+import { homeSections, sectionHtml, structuredData, pricingHtml, homeMarkdown, aboutHtml, contactHtml } from './shared/site-content.js'
 import { defineConfig, loadEnv } from 'vite'
 import earlyAccessHandler from './api/early-access.js'
 import react from '@vitejs/plugin-react'
@@ -14,6 +15,10 @@ function publicInformation() {
     },
     generateBundle() {
       this.emitFile({type:'asset',fileName:'pricing/index.html',source:pricingHtml})
+      this.emitFile({type:'asset',fileName:'about/index.html',source:aboutHtml})
+      this.emitFile({type:'asset',fileName:'contact/index.html',source:contactHtml})
+      // Keep the established policy URL canonical; /privacy is a full-content alias.
+      this.emitFile({type:'asset',fileName:'privacy/index.html',source:readFileSync(new URL('./public/privacy-policy/index.html', import.meta.url),'utf8')})
       this.emitFile({type:'asset',fileName:'llms.txt',source:homeMarkdown})
       this.emitFile({type:'asset',fileName:'index.md',source:homeMarkdown})
     },
@@ -24,7 +29,15 @@ function publicInformation() {
 function legalPageRoutes() {
   const rewrite = (req, _res, next) => {
     const url = new URL(req.url || '/', 'http://localhost')
-    const match = url.pathname.match(/^\/(privacy-policy|delete-account|pricing)\/?$/)
+    const generated = { '/about': aboutHtml, '/contact': contactHtml, '/pricing': pricingHtml }
+    const normalized = url.pathname.replace(/\/$/, '')
+    if (['GET', 'HEAD'].includes(req.method) && (generated[normalized] || normalized === '/privacy')) {
+      const html = normalized === '/privacy' ? readFileSync(new URL('./public/privacy-policy/index.html', import.meta.url),'utf8') : generated[normalized]
+      _res.setHeader('Content-Type', 'text/html; charset=utf-8')
+      _res.end(req.method === 'HEAD' ? undefined : html)
+      return
+    }
+    const match = url.pathname.match(/^\/(privacy-policy|delete-account|pricing|about|contact|privacy)\/?$/)
     if (match && (req.method === 'GET' || req.method === 'HEAD')) {
       req.url = `/${match[1]}/index.html${url.search}`
     }

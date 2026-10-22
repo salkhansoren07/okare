@@ -1,12 +1,37 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "functions": {
-    "api/site-content.js": { "includeFiles": "dist/{index.html,pricing/index.html}" }
+    "api/site-content.js": {
+      "includeFiles": "dist/{index.html,pricing/index.html}"
+    }
   },
   "routes": [
-    { "src": "^/$", "dest": "/api/site-content?page=home" },
-    { "src": "^/pricing/?$", "dest": "/api/site-content?page=pricing" },
-    { "handle": "filesystem" },
-    { "src": "/.*", "dest": "/api/site-content?page=missing" }
+    {
+      "src": "^/$",
+      "dest": "/api/site-content?page=home"
+    },
+    {
+      "src": "^/pricing/?$",
+      "dest": "/api/site-content?page=pricing"
+    },
+    {
+      "src": "^/about/?$",
+      "dest": "/about/index.html"
+    },
+    {
+      "src": "^/contact/?$",
+      "dest": "/contact/index.html"
+    },
+    {
+      "src": "^/privacy/?$",
+      "dest": "/privacy/index.html"
+    },
+    {
+      "handle": "filesystem"
+    },
+    {
+      "src": "/.*",
+      "dest": "/api/site-content?page=missing"
+    }
   ]
 }

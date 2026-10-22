@@ -79,3 +79,5 @@
 .early-trap{position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden}
 .early-panel :focus-visible{outline:3px solid #bb4d31;outline-offset:3px}
 @media(max-width:800px){.early-access{grid-template-columns:minmax(0,1fr);gap:20px;padding-block:40px}.early-panel{padding:22px}}
+
+.site-info{padding-block:36px}.site-info section{max-width:820px;margin-block:28px}.site-info h2{font-size:24px;color:var(--green)}.site-info p{line-height:1.7;color:#52675d}.site-info a{color:var(--green);text-underline-offset:3px}

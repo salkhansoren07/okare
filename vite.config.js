@@ -1,13 +1,30 @@
+import { homeSections, sectionHtml, structuredData, pricingHtml, homeMarkdown } from './shared/site-content.js'
 import { defineConfig, loadEnv } from 'vite'
 import earlyAccessHandler from './api/early-access.js'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 
+// Generate human and machine-readable information from the same public copy.
+function publicInformation() {
+  return {
+    name: 'okare-public-information',
+    transformIndexHtml(html) {
+      return html.replace('<!-- OKARE_PUBLIC_INFORMATION -->', `<div class="site-info shell" id="about">${sectionHtml(homeSections)}<p><a href="/pricing/">Pricing and delivery charges</a></p></div>`)
+        .replace('</head>', `<script type="application/ld+json">${JSON.stringify(structuredData).replaceAll('<', '\\u003c')}</script></head>`)
+    },
+    generateBundle() {
+      this.emitFile({type:'asset',fileName:'pricing/index.html',source:pricingHtml})
+      this.emitFile({type:'asset',fileName:'llms.txt',source:homeMarkdown})
+      this.emitFile({type:'asset',fileName:'index.md',source:homeMarkdown})
+    },
+  }
+}
+
 // Public HTML directory indexes need explicit routing before Vite's SPA fallback.
 function legalPageRoutes() {
   const rewrite = (req, _res, next) => {
     const url = new URL(req.url || '/', 'http://localhost')
-    const match = url.pathname.match(/^\/(privacy-policy|delete-account)\/?$/)
+    const match = url.pathname.match(/^\/(privacy-policy|delete-account|pricing)\/?$/)
     if (match && (req.method === 'GET' || req.method === 'HEAD')) {
       req.url = `/${match[1]}/index.html${url.search}`
     }
@@ -45,6 +62,7 @@ function earlyAccessApi() {
 
 export default defineConfig({
   plugins: [
+    publicInformation(),
     legalPageRoutes(),
     earlyAccessApi(),
     react(),

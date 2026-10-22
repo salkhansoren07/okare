@@ -1,0 +1,12 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "functions": {
+    "api/site-content.js": { "includeFiles": "dist/{index.html,pricing/index.html}" }
+  },
+  "routes": [
+    { "src": "^/$", "dest": "/api/site-content?page=home" },
+    { "src": "^/pricing/?$", "dest": "/api/site-content?page=pricing" },
+    { "handle": "filesystem" },
+    { "src": "/.*", "dest": "/api/site-content?page=missing" }
+  ]
+}

@@ -1,0 +1,14 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.salkhansoren.quickbite",
+      "sha256_cert_fingerprints": [
+        "6A:CB:C6:83:11:AE:2B:7F:E0:54:D7:6A:47:8E:CB:F4:8C:7A:25:CA:04:28:32:0A:DD:52:F3:B1:F9:06:40:EA",
+        "E5:B5:0F:53:82:7A:6A:22:4C:77:E1:3B:F7:81:90:8B:CC:30:FE:9A:8B:A3:B1:A4:B6:14:16:41:59:5A:10:18",
+        "A8:89:29:84:FF:6E:A4:B0:67:5B:DC:C9:B2:6F:7E:52:3C:33:BB:89:5A:70:7A:2F:7D:D1:EC:B2:3F:8B:00:17"
+      ]
+    }
+  }
+]

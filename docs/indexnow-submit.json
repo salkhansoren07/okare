@@ -1,14 +1,14 @@
 {
-  "host": "okare.in",
+  "host": "www.okare.in",
   "key": "3cd133982ddd40a581e72e7c58fdb099",
-  "keyLocation": "https://okare.in/3cd133982ddd40a581e72e7c58fdb099.txt",
+  "keyLocation": "https://www.okare.in/3cd133982ddd40a581e72e7c58fdb099.txt",
   "urlList": [
-    "https://okare.in/",
-    "https://okare.in/privacy-policy/",
-    "https://okare.in/delete-account/",
-    "https://okare.in/pricing/",
-    "https://okare.in/about/",
-    "https://okare.in/contact/",
-    "https://okare.in/privacy/"
+    "https://www.okare.in/",
+    "https://www.okare.in/privacy-policy/",
+    "https://www.okare.in/delete-account/",
+    "https://www.okare.in/pricing/",
+    "https://www.okare.in/about/",
+    "https://www.okare.in/contact/",
+    "https://www.okare.in/privacy/"
   ]
 }

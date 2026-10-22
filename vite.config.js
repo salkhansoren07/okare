@@ -1,5 +1,5 @@
 import { readFileSync } from 'node:fs'
-import { homeSections, sectionHtml, structuredData, pricingHtml, homeMarkdown, aboutHtml, contactHtml } from './shared/site-content.js'
+import { homeSections, sectionHtml, structuredData, pricingHtml, homeMarkdown, aboutHtml, contactHtml, llmsText, agentInstructions } from './shared/site-content.js'
 import { defineConfig, loadEnv } from 'vite'
 import earlyAccessHandler from './api/early-access.js'
 import react from '@vitejs/plugin-react'
@@ -19,8 +19,9 @@ function publicInformation() {
       this.emitFile({type:'asset',fileName:'contact/index.html',source:contactHtml})
       // Keep the established policy URL canonical; /privacy is a full-content alias.
       this.emitFile({type:'asset',fileName:'privacy/index.html',source:readFileSync(new URL('./public/privacy-policy/index.html', import.meta.url),'utf8')})
-      this.emitFile({type:'asset',fileName:'llms.txt',source:homeMarkdown})
+      this.emitFile({type:'asset',fileName:'llms.txt',source:llmsText})
       this.emitFile({type:'asset',fileName:'index.md',source:homeMarkdown})
+      this.emitFile({type:'asset',fileName:'agent-instructions.md',source:agentInstructions})
     },
   }
 }

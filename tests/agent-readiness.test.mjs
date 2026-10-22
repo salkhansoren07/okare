@@ -26,7 +26,7 @@ for(const page of ['home','pricing'])test(`${page} returns HTML and Markdown wit
 })
 test('unknown pages retain 404 in both formats and link back to useful pages',async()=>{
  for(const accept of ['text/html','text/markdown']){
-  const r=await response('missing',accept);assert.equal(r.status,404);assert.match(r.body,/https:\/\/okare.in\/sitemap.xml/)
+  const r=await response('missing',accept);assert.equal(r.status,404);assert.match(r.body,/https:\/\/www.okare.in\/sitemap.xml/)
   assert.ok(r.headers['Content-Type'].startsWith(accept));assert.ok(r.body.length>20)
  }
 })
@@ -42,7 +42,7 @@ test('built HTML contains meaningful public information and valid identity data'
  const data=JSON.parse(html.match(/<script type="application\/ld\+json">(.*?)<\/script>/s)[1])
  assert.deepEqual(data['@graph'].map(x=>x['@type']),['Organization','SoftwareApplication'])
  assert.equal(data['@graph'][1].aggregateRating,undefined)
- assert.match(readFileSync('dist/sitemap.xml','utf8'),/https:\/\/okare.in\/pricing\//)
+ assert.match(readFileSync('dist/sitemap.xml','utf8'),/https:\/\/www.okare.in\/pricing\//)
  assert.match(readFileSync('dist/llms.txt','utf8'),/Musabani/)
 })
 test('static files and existing APIs are resolved before the 404 fallback',()=>{

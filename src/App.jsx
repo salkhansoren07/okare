@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
+import useLandingMotion from './hooks/use-landing-motion'
 import { serviceArea } from '../shared/site-content.js'
 import okareLogo from './assets/okare-brand.png'
 import { FoodImage, Icon, SectionIntro, SiteHeader, SiteFooter } from './components/landing'
@@ -94,14 +95,7 @@ function FinalCTA() {
 
 export default function App() {
   const root = useRef(null)
-  useEffect(() => {
-    if (!('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
-    const observer = new IntersectionObserver(entries => entries.forEach(entry => {
-      if (entry.isIntersecting) { entry.target.classList.add('in-view'); observer.unobserve(entry.target) }
-    }), { threshold: 0.08 })
-    root.current.querySelectorAll('.reason-card, .step').forEach(element => { element.classList.add('reveal'); observer.observe(element) })
-    return () => observer.disconnect()
-  }, [])
+  useLandingMotion(root)
   return <div ref={root}>
     <a className="skip-link" href="#main-content">Skip to content</a>
     <SiteHeader logo={okareLogo} />

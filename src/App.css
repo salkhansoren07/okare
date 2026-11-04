@@ -17,3 +17,38 @@
 @media(max-width:360px){.shell{width:calc(100% - 32px)}.hero .button-row{gap:9px}.hero .button{padding-inline:13px;font-size:11px;gap:8px}.hero h1{font-size:47px}.hero-footnote{font-size:9px}.food-note{padding:10px;bottom:47px}.phone{width:249px}.phone-float{padding:10px}.phone-float strong{font-size:9px}.phone-float small{font-size:8px}.phone-float .icon-tile{width:28px;height:28px}.phone-aura{width:280px;height:280px}.phone-food-card>img{height:118px}.kitchen-ticket{width:165px;right:0}.kitchen-plate{width:155px;height:155px}.kitchen-caption{font-size:5px}.final-cta h2{font-size:31px}.early-panel{padding:20px}.brand img{width:93px}}
 
 @media(max-width:360px){.mobile-menu{left:-16px;right:-16px}}
+
+/* Motion enhances visible content; no section is hidden while awaiting JavaScript. */
+.site-header{--reading-progress:0;transition:background .25s,box-shadow .25s}
+.site-header::after{content:'';position:absolute;left:0;right:0;bottom:-1px;height:2px;background:var(--red);transform-origin:left;transform:scaleX(var(--reading-progress));pointer-events:none}
+.site-header.is-scrolled{background:#fffaf4f5;box-shadow:0 5px 24px #432d1909}
+.desktop-nav a{position:relative}
+.desktop-nav a::after{content:'';position:absolute;height:2px;background:var(--red);bottom:7px;left:0;right:0;transform:scaleX(0);transform-origin:left;transition:transform .25s}
+.desktop-nav a[aria-current=location]{color:var(--red-ink)}
+.desktop-nav a[aria-current=location]::after{transform:scaleX(1)}
+.mobile-menu a[aria-current=location]{color:var(--red-ink);font-weight:700}
+.button .icon,.text-link .icon{transition:transform .25s cubic-bezier(.2,.65,.3,1)}
+.button:active,.early-submit:active{transform:scale(.98)}
+.early-panel{transition:border-color .25s,box-shadow .25s}
+.early-panel:focus-within{border-color:#d7a59b;box-shadow:0 0 0 4px #e8344509}
+.early-panel input[type=email]{transition:border-color .2s,background .2s}
+.early-panel input[type=email]:focus{background:#fff;border-color:var(--red-ink)}
+.faq-item button{transition:color .2s}
+.faq-item button>span{transition:transform .3s}
+.expanded.faq-item button{color:var(--red-ink)}
+.expanded.faq-item button>span{transform:rotate(180deg)}
+@media(hover:hover){.button:hover .icon,.text-link:hover .icon{transform:translateX(3px)}.phone{transition:transform .5s cubic-bezier(.2,.65,.3,1)}.phone-scene:hover .phone{transform:rotate(2deg) translateY(-4px)}}
+@media(prefers-reduced-motion:no-preference){
+ .hero-copy>.eyebrow{animation:hero-arrive .6s both}
+ .hero h1{animation:hero-arrive .7s .07s both}
+ .hero-description{animation:hero-arrive .7s .14s both}
+ .hero-copy>.button-row,.hero-footnote{animation:hero-arrive .7s .21s both}
+ .food-orbit{animation:food-arrive .9s .08s both}
+ .food-note{animation:note-drift 6s 1s ease-in-out 3}
+ .local-note{animation:local-drift 7s 1.4s ease-in-out 3}
+}
+@keyframes hero-arrive{from{opacity:.15;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+@keyframes food-arrive{from{opacity:.3;transform:scale(.96) rotate(-2deg)}to{opacity:1;transform:scale(1) rotate(0)}}
+@keyframes note-drift{0%,100%{transform:translateY(0) rotate(-4deg)}50%{transform:translateY(-5px) rotate(-3deg)}}
+@keyframes local-drift{0%,100%{transform:translateY(0) rotate(3deg)}50%{transform:translateY(-4px) rotate(2deg)}}
+@media(prefers-reduced-motion:reduce){.button:active,.early-submit:active{transform:none}.phone-scene:hover .phone{transform:rotate(5deg)}}

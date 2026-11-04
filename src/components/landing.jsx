@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { currentSection, readingProgress } from '../lib/navigation'
 import foodLarge from '../assets/biryani-1200.jpg'
 import foodSmall from '../assets/biryani-640.jpg'
 
@@ -27,13 +28,43 @@ const nav = [['Why Okare', '#why'], ['How it works', '#how'], ['The experience',
 export function SiteHeader({ logo }) {
   const [open, setOpen] = useState(false)
   const toggle = useRef(null)
+  const header = useRef(null)
+  const [activeSection, setActiveSection] = useState('')
+  useEffect(() => {
+    let frame = 0
+    const sections = nav.map(([,href]) => document.querySelector(href)).filter(Boolean)
+    const update = () => {
+      frame = 0
+      const node = header.current
+      if (!node) return
+      node.classList.toggle('is-scrolled', window.scrollY > 24)
+      node.style.setProperty('--reading-progress', readingProgress(window.scrollY, document.documentElement.scrollHeight, window.innerHeight))
+      setActiveSection(currentSection(sections.map(section => ({ id: '#' + section.id, top: section.getBoundingClientRect().top, bottom: section.getBoundingClientRect().bottom })), Math.min(window.innerHeight * .3, 180)))
+    }
+    const schedule = () => { if (!frame) frame = requestAnimationFrame(update) }
+    const resize = new ResizeObserver(schedule)
+    resize.observe(document.documentElement)
+    update()
+    window.addEventListener('scroll', schedule, { passive: true })
+    window.addEventListener('resize', schedule)
+    return () => { cancelAnimationFrame(frame); resize.disconnect(); window.removeEventListener('scroll', schedule); window.removeEventListener('resize', schedule) }
+  }, [])
+  useEffect(() => {
+    if (!open) return
+    const closeOutside = event => { if (!header.current?.contains(event.target)) setOpen(false) }
+    const desktop = window.matchMedia('(min-width: 821px)')
+    const closeDesktop = () => { if (desktop.matches) setOpen(false) }
+    document.addEventListener('pointerdown', closeOutside)
+    desktop.addEventListener('change', closeDesktop)
+    return () => { document.removeEventListener('pointerdown', closeOutside); desktop.removeEventListener('change', closeDesktop) }
+  }, [open])
   useEffect(() => {
     if (!open) return
     const close = event => { if (event.key === 'Escape') { setOpen(false); toggle.current?.focus() } }
     document.addEventListener('keydown', close)
     return () => document.removeEventListener('keydown', close)
   }, [open])
-  return <header className="site-header"><nav className="nav shell" aria-label="Main navigation"><a className="brand" href="#top" aria-label="Okare home" onClick={() => setOpen(false)}><img src={logo} alt="Okare" width="2172" height="724" /></a><div className="desktop-nav">{nav.map(([name, href]) => <a key={href} href={href}>{name}</a>)}</div><a className="button primary nav-cta" href="#early-access" onClick={() => setOpen(false)}>Explore Okare <Icon name="arrow" /></a><button type="button" className={`menu-toggle${open ? ' is-open' : ''}`} ref={toggle} aria-expanded={open} aria-controls="mobile-menu" aria-label={open ? 'Close navigation menu' : 'Open navigation menu'} onClick={() => setOpen(!open)}><span /><span /></button><div className={`mobile-menu${open ? ' is-open' : ''}`} id="mobile-menu" inert={!open ? true : undefined} aria-hidden={!open}><div>{nav.map(([name, href]) => <a key={href} href={href} onClick={() => setOpen(false)}>{name}<Icon name="arrow" /></a>)}<a href="#early-access" onClick={() => setOpen(false)}>Android early access <Icon name="arrow" /></a></div></div></nav></header>
+  return <header ref={header} className="site-header"><nav className="nav shell" aria-label="Main navigation"><a className="brand" href="#top" aria-label="Okare home" onClick={() => setOpen(false)}><img src={logo} alt="Okare" width="2172" height="724" /></a><div className="desktop-nav">{nav.map(([name, href]) => <a key={href} href={href} aria-current={activeSection === href ? 'location' : undefined}>{name}</a>)}</div><a className="button primary nav-cta" href="#early-access" onClick={() => setOpen(false)}>Explore Okare <Icon name="arrow" /></a><button type="button" className={`menu-toggle${open ? ' is-open' : ''}`} ref={toggle} aria-expanded={open} aria-controls="mobile-menu" aria-label={open ? 'Close navigation menu' : 'Open navigation menu'} onClick={() => setOpen(!open)}><span /><span /></button><div className={`mobile-menu${open ? ' is-open' : ''}`} id="mobile-menu" inert={!open ? true : undefined} aria-hidden={!open}><div>{nav.map(([name, href]) => <a key={href} href={href} aria-current={activeSection === href ? 'location' : undefined} onClick={() => setOpen(false)}>{name}<Icon name="arrow" /></a>)}<a href="#early-access" onClick={() => setOpen(false)}>Android early access <Icon name="arrow" /></a></div></div></nav></header>
 }
 export function SiteFooter({ logo }) {
   return <footer className="site-footer shell"><div className="footer-top"><div className="footer-brand"><a href="#top" aria-label="Okare home"><img src={logo} alt="Okare" width="2172" height="724" loading="lazy" /></a><p>Good food. Delivered with care.<br />From your neighbourhood, with love.</p></div><div className="footer-column"><h2>Discover</h2><a href="#why">Why Okare</a><a href="#experience">The experience</a><a href="/about/">About</a><a href="/pricing/">Pricing</a></div><div className="footer-column"><h2>Here to help</h2><a href="/contact/">Contact</a><a href="mailto:support@okare.in">Contact support</a><a href="/privacy/">Privacy</a><a href="/delete-account/">Delete account</a></div><div className="footer-column"><h2>Stay a little closer</h2><a href="https://www.instagram.com/okare.in?xtok=cHh2cm1qbHdjNGQy" target="_blank" rel="noopener noreferrer">Instagram <span className="sr-only">(opens in a new tab)</span> ↗</a><a href="https://x.com/Okare_in" target="_blank" rel="noopener noreferrer">X <span className="sr-only">(opens in a new tab)</span> ↗</a><a href="https://www.facebook.com/profile.php?id=61595729341731" target="_blank" rel="noopener noreferrer">Facebook <span className="sr-only">(opens in a new tab)</span> ↗</a></div></div><div className="footer-bottom"><span>© {new Date().getFullYear()} Okare Enterprise. All rights reserved.</span><span>Made with care in Jharkhand <Icon name="heart" /></span></div></footer>
